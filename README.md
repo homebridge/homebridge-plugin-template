@@ -72,10 +72,10 @@ Run this command so your global install of Homebridge can discover the plugin in
 npm link
 ```
 
-You can undo this change by running:
+You can now start Homebridge, use the `-D` flag so you can see debug log messages in your plugin:
 
 ```
-npm unlink
+homebridge -D
 ```
 
 ## Watch For Changes And Build Automatically
