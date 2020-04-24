@@ -4,7 +4,7 @@ This is a template Homebridge platform plugin and can be used as a base to help 
 
 ## Clone As Template
 
-Click this link to create a new GitHub Repository using this template, or click the *Use This Template* button above.
+Click the link below to create a new GitHub Repository using this template, or click the *Use This Template* button above.
 
 <span align="center">
 
