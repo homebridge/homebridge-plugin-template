@@ -56,6 +56,10 @@ Open the [`src/index.ts`](./src/index.ts) file and change the default values:
 * `PLATFORM_NAME` - Set this to be the name of your platform. This is the name of the platform that users will use to register the plugin in the Homebridge `config.json`.
 * `PLUGIN_NAME` - Set this to be the same name you set in the [`package.json`](./package.json) file. 
 
+Open the [`config.schema.json`](./config.schema.json) file and change the following attribute:
+
+* `pluginAlias` - set this to match the `PLATFORM_NAME` you defined in the previous step.
+
 ## Build Plugin
 
 TypeScript needs to be compiled into JavaScript before it can run. The following command will compile the contents of your [`src`](./src) directory and put the resulting code into the `dist` folder.

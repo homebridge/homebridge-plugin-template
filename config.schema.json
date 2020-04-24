@@ -1,6 +1,7 @@
 {
   "pluginAlias": "ExampleDynamicPlatform",
   "pluginType": "platform",
+  "singular": true,
   "schema": {
     "type": "object",
     "properties": {
