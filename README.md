@@ -22,11 +22,7 @@ Click the link below to create a new GitHub Repository using this template, or c
 
 ## Setup Development Environment
 
-To develop Homebridge plugins you must have Node.js 12 or later installed, and a modern code editor such as [VS Code](https://code.visualstudio.com/).
-
-This plugin template uses [TypeScript](https://www.typescriptlang.org/) to make development easier. Most modern IDEs now support TypeScript, however you will need to install some supporting extensions. 
-
-This project comes with pre-configured settings for [VS Code](https://code.visualstudio.com/) and ESLint. If you are using VS Code install these extensions:
+To develop Homebridge plugins you must have Node.js 12 or later installed, and a modern code editor such as [VS Code](https://code.visualstudio.com/). This plugin template uses [TypeScript](https://www.typescriptlang.org/) to make development easier and comes with pre-configured settings for [VS Code](https://code.visualstudio.com/) and ESLint. If you are using VS Code install these extensions:
 
 * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
@@ -42,7 +38,7 @@ npm install
 
 Open the [`package.json`](./package.json) and change the following attributes:
 
-* `name` - this should be prefixed with `homebridge-` and contain no spaces or special characters apart from a dashes
+* `name` - this should be prefixed with `homebridge-` or `@username/homebridge-` and contain no spaces or special characters apart from a dashes
 * `displayName` - this is the "nice" name displayed in the Homebridge UI
 * `repository.url` - Link to your GitHub repo
 * `bugs.url` - Link to your GitHub repo issues page
@@ -51,7 +47,7 @@ When you are ready to publish the plugin you should set `private` to false, or r
 
 ## Update Plugin Defaults
 
-Open the [`src/index.ts`](./src/index.ts) file and change the default values:
+Open the [`src/settings.ts`](./src/settings.ts) file and change the default values:
 
 * `PLATFORM_NAME` - Set this to be the name of your platform. This is the name of the platform that users will use to register the plugin in the Homebridge `config.json`.
 * `PLUGIN_NAME` - Set this to be the same name you set in the [`package.json`](./package.json) file. 
@@ -82,7 +78,7 @@ You can now start Homebridge, use the `-D` flag so you can see debug log message
 homebridge -D
 ```
 
-## Watch For Changes And Build Automatically
+## Watch For Changes and Build Automatically
 
 If you want to have your code compile automatically as you make changes, and restart Homebridge automatically between changes you can run:
 
@@ -94,8 +90,18 @@ This will launch an instance of Homebridge in debug mode which will restart ever
 
 ## Publish Package
 
-When you are ready to publish your plugin to [npm](https://www.npmjs.com/) run:
+When you are ready to publish your plugin to [npm](https://www.npmjs.com/), make sure you have removed the `private` attribute from the [`package.json`](./package.json) file then run:
 
 ```
 npm publish
 ```
+
+If you are publishing a scoped plugin, i.e. `@username/homebridge-xxx` you will need to add `--access=public` to command the first time you publish.
+
+## Versioning Your Plugin
+
+Given a version number `MAJOR`.`MINOR`.`PATCH`, such as `1.4.3`, increment the:
+
+1. MAJOR version when you make breaking changes to your plugin,
+2. MINOR version when you add functionality in a backwards compatible manner, and
+3. PATCH version when you make backwards compatible bug fixes.

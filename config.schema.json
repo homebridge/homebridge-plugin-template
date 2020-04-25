@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "ExampleDynamicPlatform",
+  "pluginAlias": "ExampleHomebridgePlugin",
   "pluginType": "platform",
   "singular": true,
   "schema": {
