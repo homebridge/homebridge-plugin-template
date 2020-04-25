@@ -102,6 +102,6 @@ If you are publishing a scoped plugin, i.e. `@username/homebridge-xxx` you will 
 
 Given a version number `MAJOR`.`MINOR`.`PATCH`, such as `1.4.3`, increment the:
 
-1. MAJOR version when you make breaking changes to your plugin,
-2. MINOR version when you add functionality in a backwards compatible manner, and
-3. PATCH version when you make backwards compatible bug fixes.
+1. **MAJOR** version when you make breaking changes to your plugin,
+2. **MINOR** version when you add functionality in a backwards compatible manner, and
+3. **PATCH** version when you make backwards compatible bug fixes.
