@@ -21,8 +21,8 @@ export class ExamplePlatformAccessory {
   }
 
   constructor(
-    private readonly accessory: PlatformAccessory,
     private readonly platform: ExampleHomebridgePlatform,
+    private readonly accessory: PlatformAccessory,
   ) {
 
     // set accessory information
@@ -35,8 +35,8 @@ export class ExamplePlatformAccessory {
     // you can create multiple services for each accessory
     this.service = this.accessory.getService(this.platform.Service.Lightbulb) ?? this.accessory.addService(this.platform.Service.Lightbulb);
 
-    // To avoid "Error: Cannot add a Service with the same UUID another Service in this Accessory without also defining a unique 'subtype' property."
-    // When creating multiple services of the same type, you need to use the following syntax to specify a name and subtype id:
+    // To avoid "Cannot add a Service with the same UUID another Service without also defining a unique 'subtype' property." error,
+    // when creating multiple services of the same type, you need to use the following syntax to specify a name and subtype id:
     // this.accessory.getService('NAME') ?? this.accessory.addService(this.platform.Service.Lightbulb, 'NAME', 'USER_DEFINED_SUBTYPE');
 
     // set the service name, this is what is displayed as the default name on the Home app
@@ -48,12 +48,12 @@ export class ExamplePlatformAccessory {
 
     // register handlers for the On/Off Characteristic
     this.service.getCharacteristic(this.platform.Characteristic.On)
-      .on(CharacteristicEventTypes.SET, this.setOn.bind(this))
-      .on(CharacteristicEventTypes.GET, this.getOn.bind(this));
+      .on(CharacteristicEventTypes.SET, this.setOn.bind(this))                // SET - bind to the `setOn` method below
+      .on(CharacteristicEventTypes.GET, this.getOn.bind(this));               // GET - bind to the `getOn` method below
 
     // register handlers for the Brightness Characteristic
     this.service.getCharacteristic(this.platform.Characteristic.Brightness)
-      .on(CharacteristicEventTypes.SET, this.setBrightness.bind(this));
+      .on(CharacteristicEventTypes.SET, this.setBrightness.bind(this));       // SET - bind to the 'setBrightness` method below
 
     // EXAMPLE ONLY
     // Example showing how to update the state of a Characteristic asynchronously instead
