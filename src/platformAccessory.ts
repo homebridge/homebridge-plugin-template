@@ -13,7 +13,7 @@ export class ExamplePlatformAccessory {
 
   /**
    * These are just used to create a working example
-   * You should implement you own code to track the state of your accessory
+   * You should implement your own code to track the state of your accessory
    */
   private exampleStates = {
     On: false,
