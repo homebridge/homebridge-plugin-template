@@ -10,6 +10,8 @@
 
 This is a template Homebridge platform plugin and can be used as a base to help you get started developing your own plugin.
 
+This template should be use in conjunction with the developer documentation available at [https://developers.homebridge.io](https://developers.homebridge.io/).
+
 ## Clone As Template
 
 Click the link below to create a new GitHub Repository using this template, or click the *Use This Template* button above.
