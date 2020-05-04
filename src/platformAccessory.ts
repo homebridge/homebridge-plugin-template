@@ -13,7 +13,7 @@ export class ExamplePlatformAccessory {
 
   /**
    * These are just used to create a working example
-   * You should implmenent you own code to track the state of your accessory
+   * You should implement your own code to track the state of your accessory
    */
   private exampleStates = {
     On: false,
@@ -43,7 +43,7 @@ export class ExamplePlatformAccessory {
     // in this example we are using the name we stored in the `accessory.context` in the `discoverDevices` method.
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.device.exampleDisplayName);
 
-    // each service must implement at-mimimum the "required characteristics" for the given service type
+    // each service must implement at-minimum the "required characteristics" for the given service type
     // see https://developers.homebridge.io/#/service/Lightbulb
 
     // register handlers for the On/Off Characteristic
