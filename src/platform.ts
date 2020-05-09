@@ -73,7 +73,7 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
       // number or MAC address
       const uuid = this.api.hap.uuid.generate(device.exampleUniqueId);
 
-      // see if an accessory with the ame uuid has already been registered and restored from
+      // see if an accessory with the same uuid has already been registered and restored from
       // the cached devices we stored in the `configureAccessory` method above
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
 
