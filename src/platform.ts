@@ -38,11 +38,7 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
    * It should be used to setup event handlers for characteristics and update respective values.
    */
   configureAccessory(accessory: PlatformAccessory) {
-    this.log.info('Restoring accessory from cache:', accessory.displayName);
-
-    // create the accessory handler
-    // this is imported from `platformAccessory.ts`
-    new ExamplePlatformAccessory(this, accessory);
+    this.log.info('Loading accessory from cache:', accessory.displayName);
 
     // add the restored accessory to the accessories cache so we can track if it has already been registered
     this.accessories.push(accessory);
@@ -77,10 +73,25 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
       // number or MAC address
       const uuid = this.api.hap.uuid.generate(device.exampleUniqueId);
 
-      // check that the device has not already been registered by checking the
-      // cached devices we stored in the `configureAccessory` method above
-      if (!this.accessories.find(accessory => accessory.UUID === uuid)) {
-        this.log.info('Registering new accessory:', device.exampleDisplayName);
+      // see if an accessory with the ame uuid has already been registered and restored from
+      // the cached devices we stored in the `configureAccessory` method above
+      const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
+
+      if (existingAccessory) {
+        // the accessory already exists
+        this.log.info('Restoring existing accessory from cache:', existingAccessory.displayName);
+
+        // if you need to update the accessory.context then you should run `api.updatePlatformAccessories`. eg.:
+        // existingAccessory.context.device = device;
+        // this.api.updatePlatformAccessories([existingAccessory]);
+
+        // create the accessory handler for the restored accessory
+        // this is imported from `platformAccessory.ts`
+        new ExamplePlatformAccessory(this, existingAccessory);
+
+      } else {
+        // the accessory does not yet exist, so we need to create it
+        this.log.info('Adding new accessory:', device.exampleDisplayName);
 
         // create a new accessory
         const accessory = new this.api.platformAccessory(device.exampleDisplayName, uuid);
@@ -89,19 +100,16 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
         // the `context` property can be used to store any data about the accessory you may need
         accessory.context.device = device;
 
-        // create the accessory handler
+        // create the accessory handler for the newly create accessory
         // this is imported from `platformAccessory.ts`
         new ExamplePlatformAccessory(this, accessory);
 
         // link the accessory to your platform
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
-
-        // push into accessory cache
-        this.accessories.push(accessory);
-
-        // it is possible to remove platform accessories at any time using `api.unregisterPlatformAccessories`, eg.:
-        // this.api.unregisterPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }
+
+      // it is possible to remove platform accessories at any time using `api.unregisterPlatformAccessories`, eg.:
+      // this.api.unregisterPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
     }
 
   }
