@@ -98,6 +98,27 @@ You can now start customising the plugin template to suit your requirements.
 * [`src/platformAccessory.ts`](./src/platformAccessory.ts) - this is where your accessory control logic should go, you can rename or create multiple instances of this file for each accessory type you need to implement as part of your platform plugin. You can refer to the [developer documentation](https://developers.homebridge.io/) to see what characteristics you need to implement for each service type.
 * [`config.schema.json`](./config.schema.json) - update the config schema to match the config you expect from the user. See the [Plugin Config Schema Documentation](https://developers.homebridge.io/#/config-schema).
 
+## Versioning Your Plugin
+
+Given a version number `MAJOR`.`MINOR`.`PATCH`, such as `1.4.3`, increment the:
+
+1. **MAJOR** version when you make breaking changes to your plugin,
+2. **MINOR** version when you add functionality in a backwards compatible manner, and
+3. **PATCH** version when you make backwards compatible bug fixes.
+
+You can use the `npm version` command to help you with this:
+
+```bash
+# major update / breaking changes
+npm version major
+
+# minor update / new features
+npm version update
+
+# patch / bugfixes
+npm version patch
+```
+
 ## Publish Package
 
 When you are ready to publish your plugin to [npm](https://www.npmjs.com/), make sure you have removed the `private` attribute from the [`package.json`](./package.json) file then run:
@@ -108,10 +129,22 @@ npm publish
 
 If you are publishing a scoped plugin, i.e. `@username/homebridge-xxx` you will need to add `--access=public` to command the first time you publish.
 
-## Versioning Your Plugin
+#### Publishing Beta Versions
 
-Given a version number `MAJOR`.`MINOR`.`PATCH`, such as `1.4.3`, increment the:
+You can publish *beta* versions of your plugin for other users to test before you release it to everyone.
 
-1. **MAJOR** version when you make breaking changes to your plugin,
-2. **MINOR** version when you add functionality in a backwards compatible manner, and
-3. **PATCH** version when you make backwards compatible bug fixes.
+```bash
+# create a new pre-release version (eg. 2.1.0-beta.1)
+npm version prepatch --preid beta
+
+# publsh to @beta
+npm publish --tag=beta
+```
+
+Users can then install the  *beta* version by appending `@beta` to the install command, for example:
+
+```
+sudo npm install -g homebridge-example-plugin@beta
+```
+
+
