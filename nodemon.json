@@ -4,6 +4,6 @@
   ],
   "ext": "ts",
   "ignore": [],
-  "exec": "tsc && homebridge -I -D",
+  "exec": "tsc && node --trace-warnings `which homebridge` -I -D",
   "signal": "SIGTERM"
 }
