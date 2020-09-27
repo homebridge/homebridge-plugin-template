@@ -17,7 +17,7 @@ export class ExamplePlatformAccessory {
   private exampleStates = {
     On: false,
     Brightness: 100,
-  }
+  };
 
   constructor(
     private readonly platform: ExampleHomebridgePlatform,
