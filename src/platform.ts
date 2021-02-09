@@ -88,10 +88,7 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
         // create the accessory handler for the restored accessory
         // this is imported from `platformAccessory.ts`
         new ExamplePlatformAccessory(this, existingAccessory);
-          
-        // update accessory cache with any changes to the accessory details and information
-        this.api.updatePlatformAccessories([existingAccessory]);
-          
+
         // it is possible to remove platform accessories at any time using `api.unregisterPlatformAccessories`, eg.:
         // remove platform accessories when no longer present
         // this.api.unregisterPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [existingAccessory]);
