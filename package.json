@@ -2,7 +2,7 @@
   "displayName": "Venstar Explorer Mini (T2000) Thermostat",
   "public": true,
   "name": "homebridge-venstar-explorer-mini",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "license": "Apache-2.0",
   "repository": {
