@@ -1,16 +1,16 @@
 {
-  "private": true,
-  "displayName": "Plugin Name",
-  "name": "homebridge-plugin-name",
-  "version": "1.0.0",
-  "description": "A short description about what your plugin does.",
+  "displayName": "Venstar Explorer Mini T2000 Thermostat",
+  "public": true,
+  "name": "@beetahnator/homebridge-venstar-t2000",
+  "version": "0.0.2",
+  "description": "",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/USERNAME/GITHUB_PROJECT_NAME.git"
+    "url": "git://github.com/beetahnator/homebridge-venstar-t2000"
   },
   "bugs": {
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
+    "url": "https://github.com/beetahnator/homebridge-venstar-t2000/issues"
   },
   "engines": {
     "node": ">=12.13.0",
@@ -18,7 +18,7 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint src/**.ts --max-warnings=0",
+    "lint": "prettier src/",
     "watch": "npm run build && npm link && nodemon",
     "build": "rimraf ./dist && tsc",
     "prepublishOnly": "npm run lint && npm run build"
@@ -26,12 +26,21 @@
   "keywords": [
     "homebridge-plugin"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "@types/node-ssdp": "^4.0.1",
+    "node-ssdp": "^4.0.1",
+    "npm": "^8.1.2",
+    "prettier": "^2.4.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  },
   "devDependencies": {
-    "@types/node": "^14.14.31",
+    "@types/node": "^16.9.6",
+    "@types/request": "^2.48.7",
+    "@types/request-promise": "^4.1.48",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
-    "@typescript-eslint/parser": "^4.16.1",
-    "eslint": "^7.21.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "eslint": "^8.1.0",
     "homebridge": "^1.3.1",
     "nodemon": "^2.0.7",
     "rimraf": "^3.0.2",
