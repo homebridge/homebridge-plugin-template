@@ -82,7 +82,26 @@ homebridge -D
 
 ## Watch For Changes and Build Automatically
 
-If you want to have your code compile automatically as you make changes, and restart Homebridge automatically between changes you can run:
+If you want to have your code compile automatically as you make changes, and restart Homebridge automatically between changes, you first need to add your plugin as a platform in `~/.homebridge/config.json`:
+```
+{
+...
+    "platforms": [
+        {
+            "name": "Config",
+            "port": 8581,
+            "platform": "config"
+        },
+        {
+            "name": "<PLUGIN_NAME>",
+            //... any other options, as listed in config.schema.json ...
+            "platform": "<PLATFORM_NAME>"
+        }
+    ]
+}
+```
+
+and then you can run:
 
 ```
 npm run watch
