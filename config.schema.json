@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "homebridge-npminstall",
   "pluginType": "platform",
   "singular": true,
   "schema": {
