@@ -137,7 +137,7 @@ You can publish *beta* versions of your plugin for other users to test before yo
 # create a new pre-release version (eg. 2.1.0-beta.1)
 npm version prepatch --preid beta
 
-# publsh to @beta
+# publish to @beta
 npm publish --tag=beta
 ```
 
