@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Homebridge watch",
+            "request": "launch",
+            "type": "node",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "watch"
+            ],
+            "preLaunchTask": "npm: install"
+        }
+    ]
+}
