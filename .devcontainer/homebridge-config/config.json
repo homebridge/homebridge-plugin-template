@@ -18,6 +18,10 @@
             "tempUnits": "c",
             "lang": "en",
             "platform": "config"
+        },
+        {
+            "name": "homebridge-plugin-name",
+            "platform": "ExampleHomebridgePlugin"
         }
     ]
 }
