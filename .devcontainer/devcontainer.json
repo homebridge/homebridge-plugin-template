@@ -12,8 +12,7 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"dbaeumer.vscode-eslint",
-				"eamodio.gitlens"
+				"dbaeumer.vscode-eslint"
 			]
 		}
 	},
