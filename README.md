@@ -24,9 +24,17 @@ Click the link below to create a new GitHub Repository using this template, or c
 
 ## Setup Development Environment
 
-To develop Homebridge plugins you must have Node.js 12 or later installed, and a modern code editor such as [VS Code](https://code.visualstudio.com/). This plugin template uses [TypeScript](https://www.typescriptlang.org/) to make development easier and comes with pre-configured settings for [VS Code](https://code.visualstudio.com/) and ESLint. If you are using VS Code install these extensions:
+This plugin template uses [TypeScript](https://www.typescriptlang.org/) to make development easier and comes with pre-configured settings for [VS Code](https://code.visualstudio.com/) and ESLint. 
+
+### Local installation
+
+To develop Homebridge plugins you must have Node.js 12 or later installed, and a modern code editor such as [VS Code](https://code.visualstudio.com/). If you are using VS Code install these extensions:
 
 * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+### Development Containers
+
+Alternatively you can use the [Development Containers](https://containers.dev) definition to create a container which already has everything installed you need for developing Homebridge plugins. To do so either use [Github Codespaces](https://github.com/features/codespaces) or use the [Remote Development extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) of [VS Code](https://code.visualstudio.com/).
 
 ## Install Development Dependencies
 
@@ -57,6 +65,15 @@ Open the [`src/settings.ts`](./src/settings.ts) file and change the default valu
 Open the [`config.schema.json`](./config.schema.json) file and change the following attribute:
 
 * `pluginAlias` - set this to match the `PLATFORM_NAME` you defined in the previous step.
+
+## Update Development Container configuration (optional)
+
+Open the [`config.json`](./.devcontainer/homebridge-config/config.json) and change the default values:
+
+* `PLATFORM_NAME` - Set this to the `PLATFORM_NAME` you set in [`src/settings.ts`](./src/settings.ts)
+* `PLUGIN_NAME` - Set this to the `PLUGIN_NAME` you set in [`src/settings.ts`](./src/settings.ts)
+
+Furthermore you can define additional values that should be set when starting the development container.
 
 ## Build Plugin
 

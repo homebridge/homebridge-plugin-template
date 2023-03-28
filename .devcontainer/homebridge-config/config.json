@@ -20,8 +20,8 @@
             "platform": "config"
         },
         {
-            "name": "homebridge-plugin-name",
-            "platform": "ExampleHomebridgePlugin"
+            "name": "PLUGIN_NAME",
+            "platform": "PLATFORM_NAME"
         }
     ]
 }
