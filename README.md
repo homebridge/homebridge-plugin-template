@@ -73,7 +73,7 @@ Open the [`config.json`](./.devcontainer/homebridge-config/config.json) and chan
 * `PLATFORM_NAME` - Set this to the `PLATFORM_NAME` you set in [`src/settings.ts`](./src/settings.ts)
 * `PLUGIN_NAME` - Set this to the `PLUGIN_NAME` you set in [`src/settings.ts`](./src/settings.ts)
 
-Furthermore you can define additional values that should be set when starting the development container.
+Furthermore you can define additional values that should be set when starting the Development Container. After you change the default configuration you have to rebuild your container so that the configuration will be updated.
 
 ## Build Plugin
 
