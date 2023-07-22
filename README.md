@@ -42,7 +42,7 @@ $ npm install
 
 Open the [`package.json`](./package.json) and change the following attributes:
 
-- `name` - this should be prefixed with `homebridge-` or `@username/homebridge-` and contain no spaces or special characters apart from a dashes
+- `name` - this should be prefixed with `homebridge-` or `@username/homebridge-`, is case-sensitive, and contains no spaces nor special characters apart from a dash `-`
 - `displayName` - this is the "nice" name displayed in the Homebridge UI
 - `repository.url` - Link to your GitHub repo
 - `bugs.url` - Link to your GitHub repo issues page
