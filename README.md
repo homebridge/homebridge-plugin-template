@@ -185,3 +185,7 @@ For reference, the current criteria are:
 - The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node.js v16 and v18.
 - The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
 - If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
+
+### Useful Links
+Note these links are here for help but are not supported/verified by the Homebridge team
+- [Custom Characteristics](https://github.com/homebridge/homebridge-plugin-template/issues/20)
