@@ -132,3 +132,6 @@ web_modules/
 .yarn/unplugged
 .yarn/build-state.yml
 .pnp.*
+
+# devcontainer files
+.devcontainer
