@@ -13,7 +13,7 @@
     "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
   },
   "engines": {
-    "node": "^18.17.0",
+    "node": "^18.17.0 || ^20.9.0",
     "homebridge": "^1.6.0"
   },
   "main": "dist/index.js",
