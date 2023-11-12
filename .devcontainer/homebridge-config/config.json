@@ -1,0 +1,27 @@
+{
+    "bridge": {
+        "name": "Homebridge",
+        "username": "0E:DD:19:D5:34:EA",
+        "manufacturer": "homebridge.io",
+        "model": "homebridge",
+        "port": 51826,
+        "pin": "674-49-017",
+        "advertiser": "ciao"
+    },
+    "accessories": [],
+    "platforms": [
+        {
+            "name": "Config",
+            "port": 8581,
+            "auth": "none",
+            "theme": "auto",
+            "tempUnits": "c",
+            "lang": "en",
+            "platform": "config"
+        },
+        {
+            "name": "PLUGIN_NAME",
+            "platform": "PLATFORM_NAME"
+        }
+    ]
+}

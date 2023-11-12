@@ -1,0 +1,20 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+	"name": "Homebridge",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "homebridge",
+	"features": {},
+	"forwardPorts": [
+		51826,
+		8581
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	},
+	"workspaceFolder": "/workspace"
+}

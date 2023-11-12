@@ -1,0 +1,11 @@
+version: '2'
+services:
+  homebridge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    network_mode: host
+    command: sleep infinity
+    volumes:
+      - ..:/workspace:cached
