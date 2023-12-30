@@ -35,7 +35,7 @@ To develop Homebridge plugins you must have Node.js 18 or later installed, and a
 Using a terminal, navigate to the project folder and run this command to install the development dependencies:
 
 ```shell
-$ npm install
+npm install
 ```
 
 ### Update package.json
@@ -65,7 +65,7 @@ Open the [`config.schema.json`](./config.schema.json) file and change the follow
 TypeScript needs to be compiled into JavaScript before it can run. The following command will compile the contents of your [`src`](./src) directory and put the resulting code into the `dist` folder.
 
 ```shell
-$ npm run build
+npm run build
 ```
 
 ### Link To Homebridge
@@ -73,13 +73,13 @@ $ npm run build
 Run this command so your global installation of Homebridge can discover the plugin in your development environment:
 
 ```shell
-$ npm link
+npm link
 ```
 
 You can now start Homebridge, use the `-D` flag, so you can see debug log messages in your plugin:
 
 ```shell
-$ homebridge -D
+homebridge -D
 ```
 
 ### Watch For Changes and Build Automatically
@@ -106,7 +106,7 @@ If you want to have your code compile automatically as you make changes, and res
 and then you can run:
 
 ```shell
-$ npm run watch
+npm run watch
 ```
 
 This will launch an instance of Homebridge in debug mode which will restart every time you make a change to the source code. It will load the config stored in the default location under `~/.homebridge`. You may need to stop other running instances of Homebridge while using this command to prevent conflicts. You can adjust the Homebridge startup command in the [`nodemon.json`](./nodemon.json) file.
@@ -131,13 +131,13 @@ You can use the `npm version` command to help you with this:
 
 ```shell
 # major update / breaking changes
-$ npm version major
+npm version major
 
 # minor update / new features
-$ npm version update
+npm version update
 
 # patch / bugfixes
-$ npm version patch
+npm version patch
 ```
 
 ### Publish Package
@@ -145,7 +145,7 @@ $ npm version patch
 When you are ready to publish your plugin to [npm](https://www.npmjs.com/), make sure you have removed the `private` attribute from the [`package.json`](./package.json) file then run:
 
 ```shell
-$ npm publish
+npm publish
 ```
 
 If you are publishing a scoped plugin, i.e. `@username/homebridge-xxx` you will need to add `--access=public` to command the first time you publish.
@@ -156,16 +156,16 @@ You can publish *beta* versions of your plugin for other users to test before yo
 
 ```shell
 # create a new pre-release version (eg. 2.1.0-beta.1)
-$ npm version prepatch --preid beta
+npm version prepatch --preid beta
 
 # publish to @beta
-$ npm publish --tag=beta
+npm publish --tag=beta
 ```
 
 Users can then install the  *beta* version by appending `@beta` to the install command, for example:
 
 ```shell
-$ sudo npm install -g homebridge-example-plugin@beta
+sudo npm install -g homebridge-example-plugin@beta
 ```
 
 ### Best Practices
