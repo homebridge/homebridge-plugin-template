@@ -36,13 +36,11 @@
       "accessories": [
         {
           "name": "Office",
-          "room": "Office",
           "pollingInterval": 5000,
           "ip": "10.0.0.36",
           "volume": {
             "unmuteValue": 50,
-            "maxValue": 100,
-            "mode": "lightbulb"
+            "maxValue": 100
           }
         }
       ]

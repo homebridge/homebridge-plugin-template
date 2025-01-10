@@ -5,9 +5,6 @@ import { FormattedLogger } from '../../utils/FormattedLogger.js';
 
 export enum ServiceType {
   'ON_OFF' = 'ON',
-  'SMART_SPEAKER' = 'SMART SPEAKER',
-  'SPEAKER' = 'SPEAKER',
-  'LIGHT_BULB' = 'LIGHT BULB',
 }
 
 export abstract class SoundTouchSpeakerCharacteristic {

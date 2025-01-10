@@ -19,60 +19,9 @@
             "type": "number",
             "placeholder": "2000"
           },
-          "sources": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {}
-            }
-          },
           "verbose": {
             "type": "boolean",
             "default": false
-          },
-          "presets": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "index": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6,
-                  "required": true
-                },
-                "enabled": {
-                  "type": "boolean",
-                  "default": true,
-                  "required": false
-                }
-              }
-            }
-          },
-          "sources": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "source": {
-                  "type": "string",
-                  "required": true
-                },
-                "account": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "enabled": {
-                  "type": "boolean",
-                  "default": true
-                }
-              }
-            }
           }
         }
       },
@@ -82,76 +31,23 @@
           "type": "object",
           "properties": {
             "name": {
-              "type": "string"
+              "type": "string",
+              "required": true,
+              "description": "Name of the speaker"
+            },
+              "ip": {
+              "type": "string",
+               "required": false,
+              "description": "IP address to use to find accessory"
             },
             "room": {
-              "type": "string"
+              "type": "string",
+              "required": false,
+              "description": "Room to use to find accessory if ip is not set"
             },
             "pollingInterval": {
               "type": "integer",
               "default": 2000
-            },
-            "ip": {
-              "type": "string"
-            },
-            "volume": {
-              "type": "object",
-              "properties": {
-                "unmuteValue": {
-                  "type": "integer"
-                },
-                "maxValue": {
-                  "type": "integer"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": ["none", "lightbulb", "speaker"]
-                }
-              }
-            },
-            "presets": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "index": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 6,
-                    "required": true
-                  },
-                  "enabled": {
-                    "type": "boolean",
-                    "default": true,
-                    "required": false
-                  }
-                }
-              }
-            },
-            "sources": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "source": {
-                    "type": "string",
-                    "required": true
-                  },
-                  "account": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "enabled": {
-                    "type": "boolean",
-                    "default": true
-                  }
-                }
-              }
             }
           }
         }
