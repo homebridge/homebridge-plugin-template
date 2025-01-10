@@ -1,44 +1,33 @@
-import { SoundTouchSpeakerCharacteristic } from './ServiceType.js';
+import { SoundTouchSpeakerCharacteristic } from './SoundTouchSpeakerCharacteristic.js';
 import {
   Characteristic,
   CharacteristicValue,
-  Logging,
   Nullable,
   PlatformAccessory,
   Service,
 } from 'homebridge';
 import { SoundTouchDevice } from '../../devices/SoundTouch/SoundTouchDevice.js';
 import { SoundTouchHomebridgePlatform } from '../../platform.js';
-import { FormattedLogger } from '../../utils/FormattedLogger.js';
 import { VolumeMode } from '../../SoundTouchHomeBridgePlatformConfig.js';
 
-export class SoundTouchSpeakerVolumeCharacteristic
-  implements SoundTouchSpeakerCharacteristic
-{
+export class SoundTouchSpeakerVolumeCharacteristic extends SoundTouchSpeakerCharacteristic {
   private service: Service;
-  private platform: SoundTouchHomebridgePlatform;
-  private log: FormattedLogger;
-  private device: SoundTouchDevice;
-  private characteristic: Characteristic;
+  private characteristic?: Characteristic;
+  private characteristicType: typeof Characteristic;
 
   constructor({
     service,
-    platform,
-    log,
-    device,
     speakerType,
+    ...props
   }: {
     accessory: PlatformAccessory;
     device: SoundTouchDevice;
     platform: SoundTouchHomebridgePlatform;
     service: Service;
-    log: Logging;
     speakerType: Omit<keyof VolumeMode, 'none'>;
   }) {
+    super(props);
     this.service = service;
-    this.platform = platform;
-    this.device = device;
-    this.log = FormattedLogger.create(log, device);
 
     if (speakerType === VolumeMode.none) {
       throw new Error(
@@ -47,17 +36,15 @@ export class SoundTouchSpeakerVolumeCharacteristic
     }
 
     if (speakerType === VolumeMode.speaker) {
-      this.characteristic = this.service.getCharacteristic(
-        this.platform.Characteristic.Volume
-      );
+      this.characteristicType = this.platform.Characteristic.Volume;
     } else {
-      this.characteristic = this.service.getCharacteristic(
-        this.platform.Characteristic.Brightness
-      );
+      this.characteristicType = this.platform.Characteristic.Brightness;
     }
-
+    this.characteristic = this.service.getCharacteristic(
+      typeof this.characteristicType
+    );
     this.characteristic
-      .onSet(this.setVolume.bind(this))
+      ?.onSet(this.setVolume.bind(this))
       .onGet(this.getVolume.bind(this));
   }
 
@@ -72,13 +59,17 @@ export class SoundTouchSpeakerVolumeCharacteristic
 
     this.log.debug(
       'current volume: %s. vs. actual: %s',
-      this.characteristic.value,
+      this.characteristic?.value,
       volume?.actual
     );
 
-    if (this.characteristic.value !== updatedVolume) {
+    if (!this.characteristic) {
+      return;
+    }
+
+    if (this.characteristic?.value !== updatedVolume) {
       this.log.debug('volume: %s%', updatedVolume);
-      this.characteristic.updateValue(updatedVolume);
+      this.service.updateCharacteristic(this.characteristic, updatedVolume);
     }
   }
 
@@ -93,7 +84,11 @@ export class SoundTouchSpeakerVolumeCharacteristic
     this.log.debug('setting volume status');
     const volume = value as number;
 
-    this.log.debug('old - %s. new - %s', this.characteristic.value, volume);
+    this.log.debug('old - %s. new - %s', this.characteristic?.value, volume);
+
+    if (!this.characteristic?.value) {
+      return;
+    }
 
     const secureVolume = this.secureVolume(this.characteristic, {
       newValue: volume,
@@ -131,9 +126,6 @@ export class SoundTouchSpeakerVolumeCharacteristic
     service: Service;
     speakerType: Omit<keyof VolumeMode, 'none'>;
   }) {
-    return new SoundTouchSpeakerVolumeCharacteristic({
-      log: props.platform.log,
-      ...props,
-    });
+    return new SoundTouchSpeakerVolumeCharacteristic(props);
   }
 }

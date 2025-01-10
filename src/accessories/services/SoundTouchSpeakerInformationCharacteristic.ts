@@ -1,27 +1,15 @@
-import { SoundTouchSpeakerCharacteristic } from './ServiceType.js';
-import { Logging, PlatformAccessory } from 'homebridge';
+import { SoundTouchSpeakerCharacteristic } from './SoundTouchSpeakerCharacteristic.js';
+import { PlatformAccessory } from 'homebridge';
 import { SoundTouchDevice } from '../../devices/SoundTouch/SoundTouchDevice.js';
 import { SoundTouchHomebridgePlatform } from '../../platform.js';
-import { FormattedLogger } from '../../utils/FormattedLogger.js';
 
-export class SoundTouchSpeakerInformationCharacteristic
-  implements SoundTouchSpeakerCharacteristic
-{
-  private platform: SoundTouchHomebridgePlatform;
-  private accessory: PlatformAccessory;
-  private device: SoundTouchDevice;
-  private log: FormattedLogger;
-
+export class SoundTouchSpeakerInformationCharacteristic extends SoundTouchSpeakerCharacteristic {
   constructor(props: {
     device: SoundTouchDevice;
-    log: Logging;
     accessory: PlatformAccessory;
     platform: SoundTouchHomebridgePlatform;
   }) {
-    this.platform = props.platform;
-    this.accessory = props.accessory;
-    this.device = props.device;
-    this.log = FormattedLogger.create(props.log, this.device);
+    super(props);
   }
 
   async init(): Promise<void> {
@@ -57,7 +45,6 @@ export class SoundTouchSpeakerInformationCharacteristic
     device: SoundTouchDevice;
     platform: SoundTouchHomebridgePlatform;
   }): Promise<SoundTouchSpeakerInformationCharacteristic> {
-    const log = props.platform.log;
-    return new SoundTouchSpeakerInformationCharacteristic({ log, ...props });
+    return new SoundTouchSpeakerInformationCharacteristic(props);
   }
 }

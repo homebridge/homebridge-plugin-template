@@ -5,7 +5,7 @@ import {
   getServiceName,
   ServiceType,
   SoundTouchSpeakerCharacteristic,
-} from './services/ServiceType.js';
+} from './services/SoundTouchSpeakerCharacteristic.js';
 import { SoundTouchSpeakerInformationCharacteristic } from './services/SoundTouchSpeakerInformationCharacteristic.js';
 import { FormattedLogger } from '../utils/FormattedLogger.js';
 import { VolumeMode } from '../SoundTouchHomeBridgePlatformConfig.js';
@@ -15,22 +15,20 @@ import { SoundTouchSpeakerTargetMediaCharacteristic } from './services/SoundTouc
 import { SoundTouchSpeakerCurrentMediaCharacteristic } from './services/SoundTouchSpeakerCurrentMediaCharacteristic.js';
 import { SoundTouchSpeakerOnCharacteristic } from './services/SoundTouchSpeakerOnCharacteristic.js';
 
-export class SoundTouchSpeakerPlatformAccessory
-  implements SoundTouchSpeakerCharacteristic
-{
+export class SoundTouchSpeakerPlatformAccessory extends SoundTouchSpeakerCharacteristic {
   private readonly speakerCharacteristics: SoundTouchSpeakerCharacteristic[];
-  private readonly device: SoundTouchDevice;
-  private readonly log: FormattedLogger;
 
-  constructor(props: {
+  constructor({
+    speakerCharacteristics,
+    ...props
+  }: {
     accessory: PlatformAccessory;
     device: SoundTouchDevice;
     platform: SoundTouchHomebridgePlatform;
     speakerCharacteristics: SoundTouchSpeakerCharacteristic[];
   }) {
-    this.device = props.device;
-    this.log = FormattedLogger.create(props.platform.log, this.device);
-    this.speakerCharacteristics = props.speakerCharacteristics;
+    super({ log: props.platform.log, ...props });
+    this.speakerCharacteristics = speakerCharacteristics;
   }
 
   async init(): Promise<void> {
@@ -101,7 +99,6 @@ export class SoundTouchSpeakerPlatformAccessory
     device: SoundTouchDevice;
     defaultCharacteristics: SoundTouchSpeakerCharacteristic[];
   }): Promise<SoundTouchSpeakerPlatformAccessory> {
-
     const lightBulbService =
       SoundTouchSpeakerPlatformAccessory.ensureAccessoryService({
         serviceType: ServiceType.LIGHT_BULB,

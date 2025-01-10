@@ -1,42 +1,31 @@
-import { SoundTouchSpeakerCharacteristic } from './ServiceType.js';
+import { SoundTouchSpeakerCharacteristic } from './SoundTouchSpeakerCharacteristic.js';
 import {
   Characteristic,
   CharacteristicValue,
-  Logging,
   Nullable,
   PlatformAccessory,
   Service,
 } from 'homebridge';
 import { SoundTouchDevice } from '../../devices/SoundTouch/SoundTouchDevice.js';
 import { SoundTouchHomebridgePlatform } from '../../platform.js';
-import { FormattedLogger } from '../../utils/FormattedLogger.js';
 import { KeyValue } from '../../devices/SoundTouch/api/index.js';
 
-export class SoundTouchSpeakerMuteCharacteristic
-  implements SoundTouchSpeakerCharacteristic
-{
+export class SoundTouchSpeakerMuteCharacteristic extends SoundTouchSpeakerCharacteristic {
   private service: Service;
-  private platform: SoundTouchHomebridgePlatform;
-  private log: FormattedLogger;
-  private device: SoundTouchDevice;
   private characteristic: Characteristic;
 
   constructor({
     service,
-    platform,
-    log,
-    device,
+    ...props
   }: {
     accessory: PlatformAccessory;
     device: SoundTouchDevice;
     service: Service;
     platform: SoundTouchHomebridgePlatform;
-    log: Logging;
   }) {
+    super(props);
     this.service = service;
-    this.platform = platform;
-    this.device = device;
-    this.log = FormattedLogger.create(log, device);
+
     this.characteristic = this.service.getCharacteristic(
       this.platform.Characteristic.Mute
     );
@@ -95,9 +84,6 @@ export class SoundTouchSpeakerMuteCharacteristic
     platform: SoundTouchHomebridgePlatform;
     service: Service;
   }) {
-    return new SoundTouchSpeakerMuteCharacteristic({
-      log: props.platform.log,
-      ...props,
-    });
+    return new SoundTouchSpeakerMuteCharacteristic(props);
   }
 }

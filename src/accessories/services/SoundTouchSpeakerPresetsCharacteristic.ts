@@ -10,20 +10,24 @@ import { SoundTouchDevice } from '../../devices/SoundTouch/SoundTouchDevice.js';
 import { SoundTouchHomebridgePlatform } from '../../platform.js';
 import { KeyValue, PlayStatus } from '../../devices/SoundTouch/api/index.js';
 
-export class SoundTouchSpeakerTargetMediaCharacteristic extends SoundTouchSpeakerCharacteristic {
+export class SoundTouchSpeakerPresetsCharacteristic extends SoundTouchSpeakerCharacteristic {
   private service: Service;
   private characteristic: Characteristic;
+  private presetName: string;
 
   constructor({
+    presetName,
     service,
     ...props
   }: {
+    presetName: string;
     accessory: PlatformAccessory;
     device: SoundTouchDevice;
     platform: SoundTouchHomebridgePlatform;
     service: Service;
   }) {
     super(props);
+    this.presetName = presetName;
     this.service = service;
 
     this.characteristic = this.service.getCharacteristic(
@@ -110,11 +114,12 @@ export class SoundTouchSpeakerTargetMediaCharacteristic extends SoundTouchSpeake
   }
 
   static async create(props: {
+    presetName: string;
     accessory: PlatformAccessory;
     device: SoundTouchDevice;
     platform: SoundTouchHomebridgePlatform;
     service: Service;
   }) {
-    return new SoundTouchSpeakerTargetMediaCharacteristic(props);
+    return new SoundTouchSpeakerPresetsCharacteristic(props);
   }
 }

@@ -1,54 +1,42 @@
-import { SoundTouchSpeakerCharacteristic } from './ServiceType.js';
+import { SoundTouchSpeakerCharacteristic } from './SoundTouchSpeakerCharacteristic.js';
 import {
   Characteristic,
   CharacteristicValue,
-  Logging,
   Nullable,
   PlatformAccessory,
   Service,
 } from 'homebridge';
 import { SoundTouchDevice } from '../../devices/SoundTouch/SoundTouchDevice.js';
 import { SoundTouchHomebridgePlatform } from '../../platform.js';
-import { FormattedLogger } from '../../utils/FormattedLogger.js';
 import { PlayStatus } from '../../devices/SoundTouch/api/index.js';
 
-export class SoundTouchSpeakerCurrentMediaCharacteristic
-  implements SoundTouchSpeakerCharacteristic
-{
+export class SoundTouchSpeakerCurrentMediaCharacteristic extends SoundTouchSpeakerCharacteristic {
   private service: Service;
-  private platform: SoundTouchHomebridgePlatform;
-  private log: FormattedLogger;
-  private device: SoundTouchDevice;
   private characteristic: Characteristic;
 
   constructor({
     service,
-    platform,
-    log,
-    device,
+    ...props
   }: {
     accessory: PlatformAccessory;
     device: SoundTouchDevice;
     platform: SoundTouchHomebridgePlatform;
     service: Service;
-    log: Logging;
   }) {
+    super(props);
     this.service = service;
-    this.platform = platform;
-    this.device = device;
-    this.log = FormattedLogger.create(log, device);
     this.characteristic = this.service.getCharacteristic(
       this.platform.Characteristic.CurrentMediaState
     );
     this.characteristic.onGet(this.getMedia.bind(this));
   }
 
-  async init(): Promise<void> {
+  init: () => Promise<void> = async () => {
     this.log.debug('initialising current media state');
     await this.refresh();
-  }
+  };
 
-  async refresh(): Promise<void> {
+  refresh: () => Promise<void> = async (): Promise<void> => {
     const nowPlaying = await this.device.api.getNowPlaying();
 
     if (!nowPlaying?.playStatus) {
@@ -63,7 +51,7 @@ export class SoundTouchSpeakerCurrentMediaCharacteristic
       );
       this.characteristic.updateValue(current);
     }
-  }
+  };
 
   async getMedia(): Promise<Nullable<CharacteristicValue>> {
     this.log.debug('getting current media status');
@@ -88,18 +76,12 @@ export class SoundTouchSpeakerCurrentMediaCharacteristic
     }
   }
 
-  static async create({
-    ...props
-  }: {
-    // type: SpeakerType;
+  static async create(props: {
     accessory: PlatformAccessory;
     device: SoundTouchDevice;
     platform: SoundTouchHomebridgePlatform;
     service: Service;
   }) {
-    return new SoundTouchSpeakerCurrentMediaCharacteristic({
-      log: props.platform.log,
-      ...props,
-    });
+    return new SoundTouchSpeakerCurrentMediaCharacteristic(props);
   }
 }
