@@ -48,6 +48,7 @@ export default tseslint.config(
       globals: {
         setTimeout: 'readable',
         clearTimeout: 'readable',
+        setInterval: 'readable',
       },
     },
   },
