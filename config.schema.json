@@ -35,9 +35,9 @@
               "required": true,
               "description": "Name of the speaker"
             },
-              "ip": {
+            "ip": {
               "type": "string",
-               "required": false,
+              "required": false,
               "description": "IP address to use to find accessory"
             },
             "room": {

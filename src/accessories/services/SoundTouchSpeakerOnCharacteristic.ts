@@ -27,7 +27,7 @@ export class SoundTouchSpeakerOnCharacteristic extends SoundTouchSpeakerCharacte
 
     this.service = service;
     this.characteristic = this.service.getCharacteristic(
-      this.platform.Characteristic.On
+      this.platform.characteristic.On
     );
 
     this.characteristic
@@ -36,13 +36,13 @@ export class SoundTouchSpeakerOnCharacteristic extends SoundTouchSpeakerCharacte
   }
 
   async init(): Promise<void> {
-    this.log.debug('initialising on status');
+    this.log.debug('initialising on characteristic');
     await this.refresh();
   }
 
   async refresh(): Promise<void> {
     const isOn = await SoundTouchDevice.deviceIsOn(this.device);
-
+    this.log.debug('get on', isOn);
     if (isOn !== this.characteristic.value) {
       this.characteristic.updateValue(isOn);
     }
@@ -63,6 +63,7 @@ export class SoundTouchSpeakerOnCharacteristic extends SoundTouchSpeakerCharacte
       ) {
         await this.device.api.pressKey(KeyValue.power);
       }
+      this.log.success('set status - %s', desiredPowerStatus ? 'on' : 'off');
     } catch (e: unknown) {
       this.log.error('error setting on status', e);
       throw new this.platform.api.hap.HapStatusError(
@@ -76,7 +77,7 @@ export class SoundTouchSpeakerOnCharacteristic extends SoundTouchSpeakerCharacte
 
   async getOn(): Promise<CharacteristicValue> {
     const isOn = await SoundTouchDevice.deviceIsOn(this.device);
-
+    this.log.debug('get on', isOn);
     return isOn;
   }
 

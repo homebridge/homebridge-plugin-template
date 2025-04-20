@@ -28,20 +28,13 @@
       "discoverAllAccessories": false,
       "global": {
         "pollingInterval": 2000,
-        "verbose": true,
-        "presets": [
-        ],
-        "sources": []
+        "verbose": false
       },
       "accessories": [
         {
           "name": "Office",
           "pollingInterval": 5000,
-          "ip": "10.0.0.36",
-          "volume": {
-            "unmuteValue": 50,
-            "maxValue": 100
-          }
+          "ip": "10.0.0.36"
         }
       ]
     }

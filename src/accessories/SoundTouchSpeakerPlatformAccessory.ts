@@ -32,15 +32,13 @@ export class SoundTouchSpeakerPlatformAccessory extends SoundTouchSpeakerCharact
       }
     }
 
-    if (this.device.pollingInterval !== undefined) {
+    if (this.device.configuration.pollingInterval !== undefined) {
       this._refreshDeviceServices().then(() => {
         //no-op
       });
     }
 
-    if (this.device.verbose) {
-      this.log.info(`Device ready`);
-    }
+    this.log.info(`Device ready`);
   }
 
   async refresh(): Promise<void> {
@@ -54,7 +52,7 @@ export class SoundTouchSpeakerPlatformAccessory extends SoundTouchSpeakerCharact
   private async _refreshDeviceServices(): Promise<void> {
     while (true) {
       await new Promise((resolve) =>
-        setTimeout(resolve, this.device.pollingInterval)
+        setTimeout(resolve, this.device.configuration.pollingInterval)
       );
 
       await this.refresh();
@@ -69,7 +67,7 @@ export class SoundTouchSpeakerPlatformAccessory extends SoundTouchSpeakerCharact
   }): Promise<SoundTouchSpeakerPlatformAccessory> {
     const service = SoundTouchSpeakerPlatformAccessory.ensureAccessoryService({
       serviceType: ServiceType.ON_OFF,
-      service: props.platform.Service.Switch,
+      service: props.platform.service.Switch,
       ...props,
     });
 
@@ -87,21 +85,19 @@ export class SoundTouchSpeakerPlatformAccessory extends SoundTouchSpeakerCharact
     });
   }
 
-    static async create(props: {
+  static async create(props: {
     platform: SoundTouchHomebridgePlatform;
     accessory: PlatformAccessory;
     device: SoundTouchDevice;
   }): Promise<SoundTouchSpeakerPlatformAccessory> {
-
     const defaultCharacteristics: SoundTouchSpeakerCharacteristic[] = [
       await SoundTouchSpeakerInformationCharacteristic.create(props),
     ];
 
-    const accessory =
-         await SoundTouchSpeakerPlatformAccessory.createAccessory({
-          defaultCharacteristics,
-          ...props,
-        });
+    const accessory = await SoundTouchSpeakerPlatformAccessory.createAccessory({
+      defaultCharacteristics,
+      ...props,
+    });
 
     await accessory.init();
 

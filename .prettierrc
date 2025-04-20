@@ -1,32 +1,32 @@
 {
-    "trailingComma": "es5",
-    "tabWidth": 4,
-    "semi": false,
-    "singleQuote": true,
-    "overrides": [
-        {
-            "files": ["*.ts", "*.js"],
-            "options": {
-                "semi": true,
-                "bracketSameLine": false,
-                "bracketSpacing": true,
-                "tabWidth": 2
-            }
-        },
-        {
-            "files": ["*.json"],
-            "options": {
-                "trailingComma": "none",
-                "semi": true,
-                "singleQuote": false,
-                "tabWidth": 2
-            }
-        },
-        {
-            "files": [".github/**/*.yml"],
-            "options": {
-                "tabWidth": 2
-            }
-        }
-    ]
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": ["*.ts", "*.js"],
+      "options": {
+        "semi": true,
+        "bracketSameLine": false,
+        "bracketSpacing": true,
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": ["*.json"],
+      "options": {
+        "trailingComma": "none",
+        "semi": true,
+        "singleQuote": false,
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": [".github/**/*.yml"],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ]
 }

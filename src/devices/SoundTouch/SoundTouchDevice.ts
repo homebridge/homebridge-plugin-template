@@ -1,34 +1,30 @@
-import {
-  AccessoryConfig,
-  GlobalConfig,
-  isVerboseInConfigs,
-} from '../../SoundTouchHomeBridgePlatformConfig.js';
-
 import { BaseDevice } from 'homebridge-base-platform';
-import type { Logging } from 'homebridge';
 import { apiNotFoundWithName } from '../../errors.js';
 import {
-  API,
-  APIDiscovery,
+  API as SoundTouchApi,
+  APIDiscovery as SoundTouchDiscovery,
   Info,
   SourceStatus,
+  NetworkInfo,
 } from './api/index.js';
+import { DeviceConfiguration } from './SoundTouchDeviceConfiguration.js';
+import { Logger } from '../../utils/FormattedLogger.js';
+import { PlatformConfiguration } from '../../PlatformConfiguration.js';
+import { flattenAccessoryConfiguration } from '../../ExternalPlatformConfig.js';
 
 interface SoundTouchSpeakerPlatformAccessoryProps {
-  api: API;
+  api: SoundTouchApi;
   model: string;
-  verbose: boolean;
-  pollingInterval?: number | undefined;
+  configuration: DeviceConfiguration;
   version?: string | undefined;
   id: string;
   name: string;
 }
 
 export class SoundTouchDevice implements BaseDevice {
-  api: API;
+  api: SoundTouchApi;
   model: string;
-  verbose: boolean;
-  pollingInterval?: number | undefined;
+  configuration: DeviceConfiguration;
   version?: string | undefined;
   id: string;
   name: string;
@@ -36,52 +32,122 @@ export class SoundTouchDevice implements BaseDevice {
   constructor(props: SoundTouchSpeakerPlatformAccessoryProps) {
     this.api = props.api;
     this.model = props.model;
-    this.verbose = props.verbose;
-    this.pollingInterval = props.pollingInterval;
     this.version = props.version;
     this.id = props.id;
     this.name = props.name;
+    this.configuration = props.configuration;
   }
 
-  static async searchAllDevices(
-    globalConfig: GlobalConfig,
-    accessoryConfigs: AccessoryConfig[],
-    log: Logging
-  ): Promise<SoundTouchDevice[]> {
-    const apis = await APIDiscovery.search();
-    const resolved = await Promise.all(
-      apis.map(async (api) => {
+  static getOrCreateDeviceConfiguration({
+    config,
+    networkInfo,
+    name,
+    logger,
+  }: {
+    networkInfo: NetworkInfo[];
+    name: string;
+    config: PlatformConfiguration;
+    logger: Logger;
+  }) {
+    const matchedConfig = config.accessories.find(
+      (ac) => ac.room === name || networkInfo.some((i) => i.ipAddress === ac.ip)
+    );
+
+    if (matchedConfig) {
+      logger.debug('found matching config', matchedConfig);
+
+      const resultingAccessoryConfig = flattenAccessoryConfiguration({
+        globalConfig: config,
+        accessory: matchedConfig,
+      });
+
+      const deviceConfig = resultingAccessoryConfig
+        ? DeviceConfiguration.fromAccessoryConfiguration({
+            accessoryConfig: resultingAccessoryConfig,
+          })
+        : DeviceConfiguration.create({
+            name,
+            verboseLogging: config.verbose,
+            pollingInterval: config.pollingInterval,
+          });
+
+      if (deviceConfig) {
+        return deviceConfig;
+      }
+      logger.debug(
+        'could not create device config for accessory',
+        deviceConfig
+      );
+    }
+
+    logger.debug('creating default config', {
+      name,
+    });
+
+    return DeviceConfiguration.create({
+      name,
+      verboseLogging: config.verbose,
+      pollingInterval: config.pollingInterval,
+    });
+  }
+
+  static async discoverAllAccessories({
+    config,
+    logger,
+  }: {
+    config: PlatformConfiguration;
+    logger: Logger;
+  }): Promise<SoundTouchDevice[]> {
+    const soundtouchApiInstances = await SoundTouchDiscovery.search();
+
+    const devices: SoundTouchDevice[] = [];
+
+    for (const api of soundtouchApiInstances) {
+      try {
         const info = await api.getInfo();
+
         if (!info) {
-          return Promise.resolve(undefined);
+          continue;
         }
-        const accessoryConfig = accessoryConfigs.find(
-          (ac) =>
-            ac.room === info.name ||
-            info.networkInfo.some((i) => i.ipAddress === ac.ip)
+
+        const accessoryConfig = SoundTouchDevice.getOrCreateDeviceConfiguration(
+          {
+            config,
+            logger,
+            ...info,
+          }
         );
-        return SoundTouchDevice._deviceFromApi(
+
+        const device = await SoundTouchDevice.fromDiscoveredAccessory({
           api,
           info,
-          globalConfig,
-          accessoryConfig || {},
-          log
-        );
-      })
-    );
-    return resolved.filter((s): s is SoundTouchDevice => !!s);
+          accessoryConfig,
+          logger,
+        });
+
+        if (!device) continue;
+
+        devices.push(device);
+      } catch (e) {
+        logger.error('Error while creating soundtouch device', e);
+      }
+    }
+
+    return devices;
   }
 
-  static async deviceFromConfig(
-    globalConfig: GlobalConfig,
-    accessoryConfig: AccessoryConfig,
-    log: Logging
-  ): Promise<SoundTouchDevice> {
+  static async fromConfiguredAccessory({
+    accessoryConfig,
+    logger,
+  }: {
+    accessoryConfig: DeviceConfiguration;
+    logger: Logger;
+  }): Promise<SoundTouchDevice> {
     let api;
     if (accessoryConfig.ip) {
-      api = new API(accessoryConfig.ip, accessoryConfig.port);
+      api = new SoundTouchApi(accessoryConfig.ip, accessoryConfig.port);
     } else if (accessoryConfig.room) {
-      api = await APIDiscovery.find(accessoryConfig.room);
+      api = await SoundTouchDiscovery.find(accessoryConfig.room);
       if (!api) {
         throw apiNotFoundWithName(accessoryConfig.name || '(undefined)');
       }
@@ -93,29 +159,29 @@ export class SoundTouchDevice implements BaseDevice {
     if (!info) {
       throw new Error('Could not find device info');
     }
-    return SoundTouchDevice._deviceFromApi(
+    return SoundTouchDevice.fromDiscoveredAccessory({
       api,
       info,
-      globalConfig,
       accessoryConfig,
-      log
-    );
+      logger,
+    });
   }
 
-  private static async _deviceFromApi(
-    api: API,
-    info: Info,
-    globalConfig: GlobalConfig,
-    accessoryConfig: AccessoryConfig,
-    log: Logging
-  ): Promise<SoundTouchDevice> {
+  static async fromDiscoveredAccessory({
+    api,
+    info,
+    accessoryConfig,
+    logger,
+  }: {
+    api: SoundTouchApi;
+    info: Info;
+    accessoryConfig: DeviceConfiguration;
+    logger: Logger;
+  }): Promise<SoundTouchDevice> {
     const displayName = accessoryConfig.name || info.name;
-    const isVerbose = isVerboseInConfigs(globalConfig, accessoryConfig);
-    const pollingInterval =
-      accessoryConfig.pollingInterval || globalConfig.pollingInterval;
-    if (isVerbose) {
-      log(`[${displayName}] Found device`);
-    }
+
+    logger.info(`[${displayName}] Found device`);
+
     const component = info.components.find(
       (c) => c.serialNumber.toLowerCase() === info.deviceId.toLowerCase()
     );
@@ -126,14 +192,18 @@ export class SoundTouchDevice implements BaseDevice {
       id: info.deviceId,
       model: info.type,
       version: component ? component.softwareVersion : undefined,
-      verbose: isVerbose,
-      pollingInterval: pollingInterval
+      configuration: accessoryConfig,
     });
   }
 
   static async deviceIsOn(device: SoundTouchDevice): Promise<boolean> {
     try {
       const source = await device.api.getSource();
+
+      if (!source) {
+        return false;
+      }
+
       switch (source) {
         case SourceStatus.standBy:
           return false;

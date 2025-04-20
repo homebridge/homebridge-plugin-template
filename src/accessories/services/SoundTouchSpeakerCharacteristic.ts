@@ -1,7 +1,7 @@
 import { SoundTouchDevice } from '../../devices/SoundTouch/SoundTouchDevice.js';
 import { SoundTouchHomebridgePlatform } from '../../platform.js';
 import { PlatformAccessory } from 'homebridge';
-import { FormattedLogger } from '../../utils/FormattedLogger.js';
+import { DeviceLogger, Logger } from '../../utils/FormattedLogger.js';
 
 export enum ServiceType {
   'ON_OFF' = 'ON',
@@ -11,7 +11,7 @@ export abstract class SoundTouchSpeakerCharacteristic {
   protected platform: SoundTouchHomebridgePlatform;
   protected accessory: PlatformAccessory;
   protected device: SoundTouchDevice;
-  protected log: FormattedLogger;
+  protected log: Logger;
 
   protected constructor({
     accessory,
@@ -25,7 +25,7 @@ export abstract class SoundTouchSpeakerCharacteristic {
     this.accessory = accessory;
     this.platform = platform;
     this.device = device;
-    this.log = FormattedLogger.create(platform.log, device);
+    this.log = DeviceLogger.fromLogger({ logger: platform.logger, device });
   }
 
   init(): Promise<void> {
