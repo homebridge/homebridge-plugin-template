@@ -14,12 +14,11 @@
 > **Homebridge v2.0 Information**
 >
 > This template currently has a
-> - `package.json -> engines.homebridge` value of `"^1.8.0 || ^2.0.0-beta.0"`
-> - `package.json -> devDependencies.homebridge` value of `"^2.0.0-beta.0"`
+> - `package.json -> engines.homebridge` value of `"^1.8.0 || ^2.0.0"`
+> - `package.json -> devDependencies.homebridge` value of `"^2.0.0"`
 >
 > This is to ensure that your plugin will build and run on both Homebridge v1 and v2.
 >
-> Once Homebridge v2.0 has been released, you can remove the `-beta.0` in both places.
 
 ---
 
@@ -198,7 +197,7 @@ For reference, the current criteria are:
   - The plugin must be published to NPM and the source code available on a GitHub repository, with issues enabled.
   - A GitHub release should be created for every new version of your plugin, with release notes.
 - **Environment**
-  - The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v18, v20 and v22.
+  - The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v20, v22 and v23.
   - The plugin must successfully install and not start unless it is configured.
   - The plugin must not execute post-install scripts that modify the users' system in any way.
   - The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
