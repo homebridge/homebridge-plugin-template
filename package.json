@@ -20,8 +20,8 @@
   ],
   "main": "dist/index.js",
   "engines": {
-    "node": "^20.18.0 || ^22.10.0 || ^24.0.0",
-    "homebridge": "^1.8.0 || ^2.0.0-beta.0"
+    "node": "^22.10.0 || ^24.0.0",
+    "homebridge": "^1.8.0 || ^2.0.0"
   },
   "scripts": {
     "build": "rimraf ./dist && tsc",
@@ -30,17 +30,17 @@
     "watch": "npm run build && npm link && nodemon"
   },
   "dependencies": {
-    "homebridge-lib": "^7.1.12"
+    "homebridge-lib": "^8.0.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/node": "^24.10.1",
-    "eslint": "^9.39.1",
-    "homebridge": "^2.0.0-beta.55",
-    "nodemon": "^3.1.11",
-    "rimraf": "^6.1.0",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
+    "eslint": "^10.3.0",
+    "homebridge": "^2.0.0",
+    "nodemon": "^3.1.14",
+    "rimraf": "^6.1.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.4"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.2"
   }
 }
