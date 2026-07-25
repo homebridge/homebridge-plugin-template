@@ -16,7 +16,8 @@
     "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
   },
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "supports-hap"
   ],
   "main": "dist/index.js",
   "engines": {

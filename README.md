@@ -47,6 +47,7 @@ Open the [`package.json`](./package.json) and change the following attributes:
 - `homepage` - link to your GitHub repo's `README.md`
 - `repository.url` - link to your GitHub repo
 - `bugs.url` - link to your GitHub repo issues page
+- `keywords` - the template ships with `homebridge-plugin` (required) and `supports-hap` (the plugin publishes accessories over HAP, which template-based plugins do). Add `supports-matter` if your plugin also registers Matter accessories itself — see the [Matter Plugins](https://github.com/homebridge/homebridge/wiki/Matter-Plugins) wiki page
 
 When you are ready to publish the plugin you should set `private` to false, or remove the attribute entirely.
 
