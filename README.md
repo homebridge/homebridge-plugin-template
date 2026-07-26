@@ -174,9 +174,9 @@ sudo npm install -g homebridge-example-plugin@beta
 
 ### Best Practices
 
-Consider creating your plugin with the [Homebridge Verified](https://github.com/homebridge/verified) criteria in mind. This will help you to create a plugin that is easy to use and works well with Homebridge.
+Consider creating your plugin with the [Homebridge Verified](https://github.com/homebridge/plugins) criteria in mind. This will help you to create a plugin that is easy to use and works well with Homebridge.
 You can then submit your plugin to the Homebridge Verified list for review.
-The most up-to-date criteria can be found [here](https://github.com/homebridge/verified#requirements).
+The most up-to-date criteria can be found [here](https://github.com/homebridge/plugins#requirements).
 For reference, the current criteria are:
 
 - **General**
