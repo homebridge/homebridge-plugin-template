@@ -176,25 +176,7 @@ sudo npm install -g homebridge-example-plugin@beta
 
 Consider creating your plugin with the [Homebridge Verified](https://github.com/homebridge/plugins) criteria in mind. This will help you to create a plugin that is easy to use and works well with Homebridge.
 You can then submit your plugin to the Homebridge Verified list for review.
-The most up-to-date criteria can be found [here](https://github.com/homebridge/plugins#requirements).
-For reference, the current criteria are:
-
-- **General**
-  - The plugin must be of type [dynamic platform](https://developers.homebridge.io/#/#dynamic-platform-template).
-  - The plugin must not offer the same nor less functionality than that of any existing **verified** plugin.
-- **Repo**
-  - The plugin must be published to NPM and the source code available on a GitHub repository, with issues enabled.
-  - A GitHub release should be created for every new version of your plugin, with release notes.
-- **Environment**
-  - The plugin must run on all [supported LTS versions of Node.js](https://github.com/homebridge/homebridge/wiki/How-To-Update-Node.js), at the time of writing this is Node v22 and v24.
-  - The plugin must successfully install and not start unless it is configured.
-  - The plugin must not execute post-install scripts that modify the users' system in any way.
-  - The plugin must not require the user to run Homebridge in a TTY or with non-standard startup parameters, even for initial configuration.
-- **Codebase**
-  - The plugin must implement the [Homebridge Plugin Settings GUI](https://developers.homebridge.io/#/config-schema).
-  - The plugin must not contain any analytics or calls that enable you to track the user.
-  - If the plugin needs to write files to disk (cache, keys, etc.), it must store them inside the Homebridge storage directory.
-  - The plugin must not throw unhandled exceptions, the plugin must catch and log its own errors.
+The most up-to-date criteria can be found on the [Verified Plugins](https://github.com/homebridge/plugins/wiki/Verified-Plugins) wiki page.
 
 ### Useful Links
 
