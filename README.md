@@ -62,7 +62,7 @@ Open the [`config.schema.json`](./config.schema.json) file and change the follow
 
 - `pluginAlias` - set this to match the `PLATFORM_NAME` you defined in the previous step.
 
-See the [Homebridge API docs](https://developers.homebridge.io/#/config-schema#default-values) for more details on the other attributes you can set in the `config.schema.json` file.
+See the [Homebridge API docs](https://developers.homebridge.io/#/config-screen/schema#default-values) for more details on the other attributes you can set in the `config.schema.json` file.
 
 ### Build Plugin
 
@@ -121,7 +121,7 @@ You can now start customising the plugin template to suit your requirements.
 
 - [`src/platform.ts`](./src/platform.ts) - this is where your device setup and discovery should go.
 - [`src/platformAccessory.ts`](./src/platformAccessory.ts) - this is where your accessory control logic should go, you can rename or create multiple instances of this file for each accessory type you need to implement as part of your platform plugin. You can refer to the [developer documentation](https://developers.homebridge.io/) to see what characteristics you need to implement for each service type.
-- [`config.schema.json`](./config.schema.json) - update the config schema to match the config you expect from the user. See the [Plugin Config Schema Documentation](https://developers.homebridge.io/#/config-schema).
+- [`config.schema.json`](./config.schema.json) - update the config schema to match the config you expect from the user. See the [Plugin Config Schema Documentation](https://developers.homebridge.io/#/config-screen/schema).
 
 ### Versioning Your Plugin
 
